@@ -27,3 +27,16 @@ std::pair<double,double> ETNube::getPosicionCelular(std::string nombre) const {
         return posicionesCelulares.at(nombre);
     return {0, 0};
 }
+
+void ETNube::reportarPosicionDispositivo(std::string nombre, std::string dueno, double x, double y) {
+    posicionesDispositivos[nombre] = {dueno, x, y};
+}
+
+std::map<std::string, std::pair<double,double>> ETNube::getPosicionesDispositivosPorDueno(std::string dueno) const {
+    std::map<std::string, std::pair<double,double>> resultado;
+    for (const auto& [nombre, info] : posicionesDispositivos) {
+        if (info.dueno == dueno)
+            resultado[nombre] = {info.x, info.y};
+    }
+    return resultado;
+}

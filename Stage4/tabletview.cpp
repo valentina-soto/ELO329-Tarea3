@@ -1,5 +1,6 @@
 #include "tabletview.h"
 #include "findmydialog.h"
+#include "gfindmydialog.h"
 #include <QPainter>
 #include <QMenu>
 #include <QCursor>
@@ -45,11 +46,15 @@ void TabletView::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     ungrabMouse();
 
     QMenu menu;
-    QAction* findMyAction = menu.addAction("Find My");
+    QAction* findMyAction  = menu.addAction("Find My");
+    QAction* gFindMyAction = menu.addAction("GFind My");
     QAction* seleccion = menu.exec(QCursor::pos());
 
     if (seleccion == findMyAction) {
         FindMyDialog* dialog = new FindMyDialog(dueno, nube, scene, mapaDispositivos);
+        dialog->show();
+    } else if (seleccion == gFindMyAction) {
+        GFindMyDialog* dialog = new GFindMyDialog(dueno, nube, scene);
         dialog->show();
     }
 }

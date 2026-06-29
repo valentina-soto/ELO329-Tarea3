@@ -17,6 +17,7 @@ qt_add_executable(Tarea3
     eloteltag.h eloteltag.cpp
     etnube.h etnube.cpp
     findmydialog.h findmydialog.cpp
+    gfindmydialog.h gfindmydialog.cpp
     tablet.h tablet.cpp
     eloteltagview.h eloteltagview.cpp
     tabletview.h tabletview.cpp
