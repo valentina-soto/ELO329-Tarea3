@@ -7,6 +7,7 @@
 #include <QGraphicsPixmapItem>
 #include <cmath>
 #include <cstdlib>
+#include <QDebug>
 
 Stage4::Stage4(QWidget *parent)
     : QMainWindow(parent)
@@ -81,6 +82,7 @@ void Stage4::cargarConfiguracion()
 
         Cellular* nuevoCelular = new Cellular(nombrePersona.toStdString(), celX, celY, rapidez, angulo, deltaAngulo);
         listaCelulares.push_back(nuevoCelular);
+        tiempoCelularReporte.push_back(0);
         CellularView* vistaCelular = new CellularView(nuevoCelular, &nube, scene, &mapaDispositivos);
         listaVistasCelulares.push_back(vistaCelular);
         scene->addItem(vistaCelular);
@@ -193,6 +195,17 @@ void Stage4::avanzarSimulacion()
     for (size_t i = 0; i < listaCelulares.size(); ++i) {
         listaCelulares[i]->mover(deltaTiempoConfig, limiteX, limiteY);
         listaVistasCelulares[i]->setPos(listaCelulares[i]->getX(), listaCelulares[i]->getY());
+
+        tiempoCelularReporte[i] += deltaTiempoConfig;
+        if (tiempoCelularReporte[i] >= 4.0) {
+            tiempoCelularReporte[i] = 0;
+            nube.reportarPosicionCelular(listaCelulares[i]->getNombre(),
+                                         listaCelulares[i]->getX(),
+                                         listaCelulares[i]->getY());
+            qDebug() << "Celular" << QString::fromStdString(listaCelulares[i]->getNombre())
+                     << "reporta posicion:" << listaCelulares[i]->getX()
+                     << "," << listaCelulares[i]->getY();
+        }
     }
 
     for (size_t i = 0; i < listaTablets.size(); ++i) {

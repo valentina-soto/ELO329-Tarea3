@@ -58,6 +58,7 @@ private:
     // listas para almacenar en memoria
     std::vector<Cellular*> listaCelulares;
     std::vector<CellularView*> listaVistasCelulares;
+    std::vector<double> tiempoCelularReporte;
 
     std::vector<Tablet*> listaTablets;
     std::vector<TabletView*> listaVistasTablets;

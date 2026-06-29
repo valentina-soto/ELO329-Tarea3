@@ -17,3 +17,13 @@ std::vector<Reporte> ETNube::getReportesPorDueno(std::string dueno) const {
 std::vector<Reporte> ETNube::getTodosLosReportes() const {
     return reportes;
 }
+
+void ETNube::reportarPosicionCelular(std::string nombre, double x, double y) {
+    posicionesCelulares[nombre] = {x, y};
+}
+
+std::pair<double,double> ETNube::getPosicionCelular(std::string nombre) const {
+    if (posicionesCelulares.count(nombre))
+        return posicionesCelulares.at(nombre);
+    return {0, 0};
+}
