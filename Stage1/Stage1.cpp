@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QGraphicsPixmapItem>
 #include <iostream>
 
 Stage1::Stage1(QWidget *parent)
@@ -52,13 +53,14 @@ void Stage1::cargarConfiguracion()
     QTextStream in(&file);
 
     // Leer lineas
-    QString imagenFondo = in.readLine();
+    QString imagenFondo = in.readLine().trimmed();
     double deltaTiempo = in.readLine().toDouble();
     int numPersonas = in.readLine().toInt();
 
     QPixmap mapa(imagenFondo); // Carga la imagen
     if(!mapa.isNull()) {
-        scene->addPixmap(mapa);
+        QGraphicsPixmapItem* fondo = scene->addPixmap(mapa);
+        fondo->setZValue(-1);
         scene->setSceneRect(mapa.rect());
     }
 
