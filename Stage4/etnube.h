@@ -27,6 +27,7 @@ public:
 
     void reportarPosicionCelular(std::string nombre, double x, double y);
     std::pair<double,double> getPosicionCelular(std::string nombre) const;
+    bool tienePosicionCelular(std::string nombre) const;
 
     void reportarPosicionDispositivo(std::string nombre, std::string dueno, double x, double y);
     std::map<std::string, std::pair<double,double>> getPosicionesDispositivosPorDueno(std::string dueno) const;

@@ -144,7 +144,6 @@ void Stage4::actualizarRadares()
             r.circulo = scene->addEllipse(0, 0, 1, 1, QPen(QColor(220, 50, 50, 180), 1.5));
             r.circulo->setZValue(1);
             radaresActivos.push_back(r);
-            nube.reportarPosicionDispositivo(r.dispositivo, r.dueno, r.x, r.y);
         }
     }
 
@@ -162,7 +161,6 @@ void Stage4::actualizarRadares()
             r.circulo = scene->addEllipse(0, 0, 1, 1, QPen(QColor(50, 180, 50, 180), 1.5));
             r.circulo->setZValue(1);
             radaresActivos.push_back(r);
-            nube.reportarPosicionDispositivo(r.dispositivo, r.dueno, r.x, r.y);
         }
     }
 
@@ -178,6 +176,7 @@ void Stage4::actualizarRadares()
                 double dy = cel->getY() - it->y;
                 if (sqrt(dx*dx + dy*dy) <= 50.0) {
                     nube.agregarReporte(it->dispositivo, it->dueno, cel->getX(), cel->getY());
+                    nube.reportarPosicionDispositivo(it->dispositivo, it->dueno, it->x, it->y);
                 }
             }
             scene->removeItem(it->circulo);

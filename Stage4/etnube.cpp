@@ -28,6 +28,10 @@ std::pair<double,double> ETNube::getPosicionCelular(std::string nombre) const {
     return {0, 0};
 }
 
+bool ETNube::tienePosicionCelular(std::string nombre) const {
+    return posicionesCelulares.count(nombre) > 0;
+}
+
 void ETNube::reportarPosicionDispositivo(std::string nombre, std::string dueno, double x, double y) {
     posicionesDispositivos[nombre] = {dueno, x, y};
 }

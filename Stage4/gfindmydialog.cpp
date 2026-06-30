@@ -41,6 +41,34 @@ GFindMyDialog::GFindMyDialog(const std::string& dueno, ETNube* nube,
 
 void GFindMyDialog::actualizar()
 {
+    // Celular del dueño (su nombre coincide con el del dueño)
+    if (nube->tienePosicionCelular(dueno)) {
+        auto pos = nube->getPosicionCelular(dueno);
+        double x = pos.first;
+        double y = pos.second;
+        QString qnombre = QString::fromStdString(dueno);
+
+        if (items.count(dueno) == 0) {
+            ItemDispositivo id;
+            auto* rect = gscene->addRect(-10, -7, 20, 14,
+                                          QPen(Qt::darkBlue, 1),
+                                          QBrush(QColor(50, 130, 255)));
+            rect->setPos(x, y);
+            rect->setZValue(3);
+            id.forma = rect;
+
+            auto* texto = gscene->addText(qnombre);
+            texto->setPos(x + 10, y - 10);
+            texto->setDefaultTextColor(Qt::black);
+            texto->setZValue(4);
+            id.etiqueta = texto;
+            items[dueno] = id;
+        } else {
+            items[dueno].forma->setPos(x, y);
+            items[dueno].etiqueta->setPos(x + 10, y - 10);
+        }
+    }
+
     auto posiciones = nube->getPosicionesDispositivosPorDueno(dueno);
 
     for (const auto& [nombre, pos] : posiciones) {
